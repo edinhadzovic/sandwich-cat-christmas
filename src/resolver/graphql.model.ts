@@ -44,4 +44,7 @@ export class Redeem {
 
   @Field()
   txHash: string;
+
+  @Field()
+  amount: string;
 }

@@ -28,12 +28,20 @@ type Mint {
 
 type Mutation {
   mint: String!
-  redeem(address: String!, day: Float!, tokenId: String!): String!
+  redeem(address: String!, day: Float!, tokenId: String!): Redeem!
 }
 
 type Query {
   files(take: Int): [Files!]!
   hello: String!
+}
+
+type Redeem {
+  amount: String!
+  contract: String!
+  decimals: Float!
+  name: String!
+  txHash: String!
 }
 
 type Subscription {

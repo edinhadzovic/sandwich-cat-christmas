@@ -8,7 +8,7 @@ import {
   Subscription,
 } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
-import { Files, Mint } from './graphql.model';
+import { Files, Mint, Redeem } from './graphql.model';
 import { PinataService } from 'src/microservices/pinataService';
 import { AdventCollectionService } from 'src/service/AdventCollection';
 import { RewardService } from 'src/service/rewards.service';
@@ -31,7 +31,6 @@ export class GraphQLResolver {
     @Args('take', { type: () => Int, nullable: true }) take?: number,
   ) {
     const files = await this.pinataService.fetchFiles(take || 10);
-    console.log(files);
     return files;
   }
 
@@ -53,7 +52,7 @@ export class GraphQLResolver {
     return 'Message sent!';
   }
 
-  @Mutation(() => String)
+  @Mutation(() => Redeem)
   async redeem(
     @Args('address') address: string,
     @Args('tokenId') tokenId: string,
@@ -97,7 +96,13 @@ export class GraphQLResolver {
         this.memoryService.createKey(address, day, tokenId, collectionContract),
         true,
       );
-      return tx.hash;
+      return {
+        name: reward.name,
+        contract: collectionContract,
+        decimals: 18,
+        txHash: tx.hash,
+        amount: amount.toString(),
+      };
     } catch (error) {
       console.log(error);
       return new BadRequestException();
