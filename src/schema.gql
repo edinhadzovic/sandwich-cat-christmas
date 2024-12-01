@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Files {
+  id: String!
+  ipfs_pin_hash: String!
+  metadata: JSONObject!
+  mime_type: String!
+  number_of_files: Float!
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type Mint {
+  basename: String!
+  donation: String!
+  minted: DateTime!
+}
+
+type Mutation {
+  mint: String!
+}
+
+type Query {
+  files(take: Int): [Files!]!
+  hello: String!
+}
+
+type Subscription {
+  onMint: Mint!
+}

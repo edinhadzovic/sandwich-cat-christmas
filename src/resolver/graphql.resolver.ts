@@ -1,11 +1,31 @@
 import { Inject } from '@nestjs/common';
-import { Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Query,
+  Resolver,
+  Subscription,
+} from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
-import { Mint } from './graphql.model';
+import { Files, Mint } from './graphql.model';
+import { PinataService } from 'src/microservices/pinataService';
 
 @Resolver()
 export class GraphQLResolver {
-  constructor(@Inject('PUB_SUB') private pubSub: PubSub) {}
+  constructor(
+    @Inject('PUB_SUB') private pubSub: PubSub,
+    private readonly pinataService: PinataService,
+  ) {}
+
+  @Query(() => [Files])
+  async files(
+    @Args('take', { type: () => Int, nullable: true }) take?: number,
+  ) {
+    const files = await this.pinataService.fetchFiles(take || 10);
+    console.log(files);
+    return files;
+  }
 
   @Query(() => String)
   hello() {

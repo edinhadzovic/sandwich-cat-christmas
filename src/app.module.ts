@@ -7,12 +7,15 @@ import { GraphQLResolver } from './resolver/graphql.resolver';
 import { GraphQLResolverModule } from './resolver/graphql.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
       subscriptions: {
         'graphql-ws': true, // Enable WebSocket subscriptions
         path: '/graphql',

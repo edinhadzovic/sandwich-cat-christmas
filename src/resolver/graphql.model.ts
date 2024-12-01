@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { GraphQLJSONObject } from 'graphql-type-json';
 
 @ObjectType()
 export class Mint {
@@ -10,4 +11,22 @@ export class Mint {
 
   @Field()
   basename: string;
+}
+
+@ObjectType()
+export class Files {
+  @Field()
+  id: string;
+
+  @Field()
+  ipfs_pin_hash: string;
+
+  @Field(() => GraphQLJSONObject)
+  metadata: any;
+
+  @Field()
+  mime_type: string;
+
+  @Field()
+  number_of_files: number;
 }
