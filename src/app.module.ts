@@ -8,9 +8,14 @@ import { GraphQLResolverModule } from './resolver/graphql.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
+import { xmasMintMonitor } from './service/xmasMintMonitor';
+import { Web3Service } from './service/web3.service';
+import { MemoryModule } from './microservices/store/memory.module';
 
 @Module({
   imports: [
+    PubSubModal,
+    MemoryModule,
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
@@ -22,7 +27,7 @@ import { ConfigModule } from '@nestjs/config';
       },
       playground: true,
       cors: {
-        origin: '*',
+        origin: 'https://christmas2024.sacaonbase.com',
       },
     }),
     ServeStaticModule.forRoot({
@@ -32,6 +37,6 @@ import { ConfigModule } from '@nestjs/config';
     GraphQLResolverModule,
   ],
   controllers: [AppController],
-  providers: [PubSubModal],
+  providers: [PubSubModal, Web3Service, xmasMintMonitor],
 })
 export class AppModule {}

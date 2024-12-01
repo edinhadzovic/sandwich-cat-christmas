@@ -7,10 +7,10 @@ export class Mint {
   minted: Date;
 
   @Field()
-  donation: string;
+  address: string;
 
   @Field()
-  basename: string;
+  tokenId: string;
 }
 
 @ObjectType()
@@ -29,4 +29,19 @@ export class Files {
 
   @Field()
   number_of_files: number;
+}
+
+@ObjectType()
+export class Redeem {
+  @Field()
+  name: string;
+
+  @Field()
+  contract: string;
+
+  @Field()
+  decimals: number;
+
+  @Field()
+  txHash: string;
 }
