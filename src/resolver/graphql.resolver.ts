@@ -92,6 +92,11 @@ export class GraphQLResolver {
       while (!tx && tries < maxTries) {
         const [reward, amount] = this.rewardService.pickARewardRandomly();
         if (reward.name === 'coffeeNft') {
+          console.log(
+            'NFT REWARD SHOULD BE EXECUTED IF IT HAS SOME REWARDS.',
+            reward.name,
+            reward.rewards,
+          );
           const contract = amount;
           tx = await this.walletService.transferNFT(
             contract.contract,
