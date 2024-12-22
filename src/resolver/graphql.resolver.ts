@@ -107,14 +107,14 @@ export class GraphQLResolver {
           tx = await this.walletService.transformTokenToAddress(
             reward,
             address,
-            (amount * 2).toString(),
+            (amount * 3).toString(),
           );
         }
 
         if (tx) {
           finalReward = reward;
           finalAmount =
-            reward.name === 'coffeeNft' ? Number(amount.id) : amount;
+            reward.name === 'coffeeNft' ? Number(amount.id) : amount * 3;
         } else {
           tries++;
         }
