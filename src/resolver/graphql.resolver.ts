@@ -107,7 +107,7 @@ export class GraphQLResolver {
           tx = await this.walletService.transformTokenToAddress(
             reward,
             address,
-            amount.toString(),
+            (amount * 2).toString(),
           );
         }
 
