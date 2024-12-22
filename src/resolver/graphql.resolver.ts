@@ -84,24 +84,47 @@ export class GraphQLResolver {
 
       if (!isValidRequest) return 'Invalid Request';
 
-      const [reward, amount] = this.rewardService.pickARewardRandomly();
+      let finalReward = null;
+      let finalAmount: number = null;
+      let tx = null;
+      const maxTries = 5;
+      let tries = 0;
+      while (!tx && tries < maxTries) {
+        const [reward, amount] = this.rewardService.pickARewardRandomly();
+        if (reward.name === 'coffeeNft') {
+          const contract = amount;
+          tx = await this.walletService.transferNFT(
+            contract.contract,
+            contract.id,
+            address,
+          );
+        } else {
+          tx = await this.walletService.transformTokenToAddress(
+            reward,
+            address,
+            amount.toString(),
+          );
+        }
 
-      const tx = await this.walletService.transformTokenToAddress(
-        reward,
-        address,
-        amount.toString(),
-      );
+        if (tx) {
+          finalReward = reward;
+          finalAmount =
+            reward.name === 'coffeeNft' ? Number(amount.id) : amount;
+        } else {
+          tries++;
+        }
+      }
 
       this.memoryService.set(
         this.memoryService.createKey(address, day, tokenId, collectionContract),
         true,
       );
       return {
-        name: reward.name,
+        name: finalReward.name,
         contract: collectionContract,
         decimals: 18,
         txHash: tx.hash,
-        amount: amount.toString(),
+        amount: finalAmount.toString(),
       };
     } catch (error) {
       console.log(error);
