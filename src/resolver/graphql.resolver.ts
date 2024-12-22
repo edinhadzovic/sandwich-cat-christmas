@@ -96,6 +96,7 @@ export class GraphQLResolver {
             'NFT REWARD SHOULD BE EXECUTED IF IT HAS SOME REWARDS.',
             reward.name,
             reward.rewards,
+            amount,
           );
           const contract = amount;
           tx = await this.walletService.transferNFT(

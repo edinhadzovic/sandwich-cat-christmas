@@ -33,7 +33,7 @@ export class RewardService {
     const randomIndex = Math.floor(Math.random() * keys.length);
     const reward = this.items.get(keys[randomIndex]);
     const randomTier =
-      Math.floor(Math.random() * (reward.name === 'coffeeNft' ? 5 : 3)) + 1;
+      Math.floor(Math.random() * (reward.name === 'coffeeNft' ? 3 : 3)) + 1;
     return [reward, reward.rewards[randomTier]];
   }
 
