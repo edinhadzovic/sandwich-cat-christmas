@@ -50,6 +50,6 @@ export class RewardService {
     this.items.set(mrsMiggles.name, mrsMiggles);
     // this.items.set(probe.name, probe);
     this.items.set(saca.name, saca);
-    this.items.set(coffeeNFT.name, coffeeNFT);
+    // this.items.set(coffeeNFT.name, coffeeNFT);
   }
 }
