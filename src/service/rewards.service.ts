@@ -42,12 +42,12 @@ export class RewardService {
   }
 
   bootstrap() {
-    this.items.set(akira.name, akira);
-    this.items.set(awebo.name, awebo);
+    // this.items.set(akira.name, akira);
+    // this.items.set(awebo.name, awebo);
     this.items.set(coffee.name, coffee);
-    this.items.set(cream.name, cream);
+    // this.items.set(cream.name, cream);
     this.items.set(floki.name, floki);
-    this.items.set(mrsMiggles.name, mrsMiggles);
+    // this.items.set(mrsMiggles.name, mrsMiggles);
     // this.items.set(probe.name, probe);
     this.items.set(saca.name, saca);
     // this.items.set(coffeeNFT.name, coffeeNFT);
